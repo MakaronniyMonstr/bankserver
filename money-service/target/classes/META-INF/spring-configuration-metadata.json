@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "cache",
+      "type": "com.vesko.application.configuration.CacheConfiguration",
+      "sourceType": "com.vesko.application.configuration.CacheConfiguration"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
