@@ -3,6 +3,7 @@ package com.vesko.balance.service.impl;
 import com.vesko.application.exception.ResourceCannotBeModifiedException;
 import com.vesko.application.exception.ResourceNotFoundException;
 import com.vesko.balance.dto.BalanceDto;
+import com.vesko.balance.entity.Balance;
 import com.vesko.balance.mapper.BalanceMapper;
 import com.vesko.balance.projection.BalanceIdInfo;
 import com.vesko.balance.projection.BalanceRublesInfo;
@@ -26,10 +27,8 @@ public class BalanceServiceImpl implements BalanceService {
     private final BalanceMapper mapper;
 
     @Override
-    public BalanceDto save(BalanceDto account) {
-        assert account != null;
-
-        var entity = mapper.toEntity(account);
+    public BalanceDto create() {
+        var entity = new Balance();
         return mapper.toDto(repository.save(entity));
     }
 
@@ -41,11 +40,10 @@ public class BalanceServiceImpl implements BalanceService {
         var accountIdInfo = repository.findById(id, BalanceRublesInfo.class)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         return BalanceDto.builder()
-                .balance(accountIdInfo.getRubles())
+                .rubles(accountIdInfo.getRubles())
                 .build();
     }
 
-    @Cacheable("balances")
     @Override
     public List<BalanceDto> getAvailableIds() {
         return repository.findAllBy(BalanceIdInfo.class)

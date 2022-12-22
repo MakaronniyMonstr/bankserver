@@ -31,4 +31,9 @@ public class BalanceController {
     public void addBalanceById(@PathVariable Long id, @RequestParam Long amount) {
         balanceService.changeBalanceByUserId(id, amount);
     }
+
+    @PostMapping
+    public BalanceDto createBalance() {
+        return balanceService.create();
+    }
 }

@@ -13,5 +13,5 @@ public class BalanceDto implements Serializable {
     @JsonView({OutputViews.Id.class})
     private final Long id;
     @JsonView({OutputViews.Balance.class})
-    private final Long balance;
+    private final Long rubles;
 }
