@@ -1,9 +1,13 @@
 package com.vesko.balance.repository;
 
 import com.vesko.balance.entity.Balance;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.AvailableHints;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,11 +15,16 @@ import java.util.Optional;
 
 @Repository
 public interface BalanceRepository extends JpaRepository<Balance, Long> {
-    <T> Optional<T> findById(Long id, Class<T> type);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @QueryHints({@QueryHint(name = AvailableHints.HINT_SPEC_LOCK_TIMEOUT, value = "30000")})
+    @Query("select b from Balance b where b.id = :id")
+    Optional<Balance> findByIdWithWriteLock(Long id);
 
-    @Modifying
-    @Query("update Balance a set a.rubles = a.rubles + :amount where a.id = :id and a.rubles + :amount >= 0")
-    int changeBalanceByUserId(Long id, Long amount);
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    @QueryHints({@QueryHint(name = AvailableHints.HINT_SPEC_LOCK_TIMEOUT, value = "30000")})
+    @Query("select b from Balance b where b.id = :id")
+    Optional<Balance> findByIdWithReadLock(Long id);
 
-    <T> List<T> findAllBy(Class<T> type);
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    List<Balance> findAllBy();
 }

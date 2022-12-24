@@ -18,6 +18,9 @@ public class BaseEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Version
+    private Long version;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
