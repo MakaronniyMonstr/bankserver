@@ -1,0 +1,6 @@
+host: "http://localhost:8080"
+threadCount: 8
+readQuota: 10
+writeQuota: 90
+readIdList: [ 100, 101, 102, 103, 104, 105, 105, 107, 108, 109 ]
+writeIdList: [ 100, 101, 102, 103, 104, 105, 105, 107, 108, 109 ]
