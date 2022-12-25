@@ -12,6 +12,8 @@
     <modules>
         <module>money-service</module>
         <module>dev-container</module>
+        <module>aop-statistics</module>
+        <module>load-tests</module>
     </modules>
 
     <parent>
@@ -56,6 +58,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
