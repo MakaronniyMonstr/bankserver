@@ -1,6 +1,7 @@
 package com.vesko.balance.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.vesko.aop.statistics.annotation.Statistic;
 import com.vesko.balance.dto.BalanceDto;
 import com.vesko.balance.service.BalanceService;
 import com.vesko.balance.view.OutputViews;
@@ -23,12 +24,15 @@ public class BalanceController {
         return balanceService.getAvailableIds(pageable);
     }
 
+    @Statistic(region = "read")
     @GetMapping("/{id}")
     @JsonView({OutputViews.Balance.class})
     public BalanceDto getBalanceById(@PathVariable Long id) {
         return balanceService.getBalanceByUserId(id);
     }
 
+    @Statistic(region = "write")
+    @JsonView({OutputViews.Balance.class})
     @PostMapping("/{id}")
     public BalanceDto addBalanceById(@PathVariable Long id, @RequestParam Long amount) {
         return balanceService.changeBalanceByUserId(id, amount);

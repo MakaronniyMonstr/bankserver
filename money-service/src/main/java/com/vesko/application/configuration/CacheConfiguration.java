@@ -1,7 +1,9 @@
 package com.vesko.application.configuration;
 
 import com.google.common.cache.CacheBuilder;
-import org.springframework.beans.factory.annotation.Value;
+import com.vesko.application.property.CacheProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,10 +15,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@EnableConfigurationProperties(CacheProperties.class)
 @EnableCaching
+@RequiredArgsConstructor
 public class CacheConfiguration {
-    @Value("${cache.size}")
-    private Integer cacheSize;
+    private final CacheProperties properties;
 
     @Bean
     public CacheManager cacheManager() {
@@ -26,7 +29,7 @@ public class CacheConfiguration {
                 return new ConcurrentMapCache(
                         name,
                         CacheBuilder.newBuilder()
-                                .maximumSize(cacheSize)
+                                .maximumSize(properties.getCacheSize())
                                 .expireAfterWrite(10, TimeUnit.SECONDS)
                                 .build()
                                 .asMap(),

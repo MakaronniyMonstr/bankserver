@@ -16,3 +16,6 @@ spring:
 
 cache:
   size: 100
+
+statistic:
+  log-delay: 1000
