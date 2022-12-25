@@ -3,7 +3,7 @@ version: '3.1'
 services:
   db:
     container_name: posgresql
-    image: postgres
+    image: postgres:15.1
     restart: always
     environment:
       POSTGRES_USER: root
