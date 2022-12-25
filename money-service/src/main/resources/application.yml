@@ -1,13 +1,9 @@
 spring:
   jpa:
     open-in-view: false
-#    show-sql: true
     hibernate:
       ddl-auto: update
     database: postgresql
-#    properties:
-#      hibernate:
-#        generate_statistics: true
   datasource:
     url: jdbc:postgresql://localhost:5432/money_service_db
     username: root
