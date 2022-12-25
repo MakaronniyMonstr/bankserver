@@ -49,9 +49,7 @@ public class LoadApplication {
         var readProbability = (double) properties.getReadQuota() /
                 (properties.getReadQuota() + properties.getWriteQuota());
         return () -> {
-            int i = 0;
-            while (i < 500) {
-                i++;
+            while (true) {
                 try {
                     long start = System.currentTimeMillis();
                     if (ThreadLocalRandom.current().nextDouble() < readProbability) {
@@ -78,7 +76,6 @@ public class LoadApplication {
                     throw new RuntimeException(e);
                 }
             }
-            return null;
         };
     }
 }
