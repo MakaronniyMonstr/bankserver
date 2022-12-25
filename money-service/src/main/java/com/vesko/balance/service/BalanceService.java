@@ -1,6 +1,7 @@
 package com.vesko.balance.service;
 
 import com.vesko.balance.dto.BalanceDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface BalanceService {
 
     BalanceDto getBalanceByUserId(Long id);
 
-    List<BalanceDto> getAvailableIds();
+    List<BalanceDto> getAvailableIds(Pageable pageable);
 
-    void changeBalanceByUserId(Long id, Long amount);
+    BalanceDto changeBalanceByUserId(Long id, Long amount);
 }

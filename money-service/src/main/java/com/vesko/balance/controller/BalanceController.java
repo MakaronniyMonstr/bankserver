@@ -5,6 +5,8 @@ import com.vesko.balance.dto.BalanceDto;
 import com.vesko.balance.service.BalanceService;
 import com.vesko.balance.view.OutputViews;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +19,8 @@ public class BalanceController {
 
     @GetMapping
     @JsonView({OutputViews.Id.class})
-    public List<BalanceDto> getAvailableBalanceIds() {
-        return balanceService.getAvailableIds();
+    public List<BalanceDto> getAvailableBalanceIds(@PageableDefault Pageable pageable) {
+        return balanceService.getAvailableIds(pageable);
     }
 
     @GetMapping("/{id}")
@@ -28,8 +30,8 @@ public class BalanceController {
     }
 
     @PostMapping("/{id}")
-    public void addBalanceById(@PathVariable Long id, @RequestParam Long amount) {
-        balanceService.changeBalanceByUserId(id, amount);
+    public BalanceDto addBalanceById(@PathVariable Long id, @RequestParam Long amount) {
+        return balanceService.changeBalanceByUserId(id, amount);
     }
 
     @PostMapping
