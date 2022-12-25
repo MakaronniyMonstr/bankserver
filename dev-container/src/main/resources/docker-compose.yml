@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: posgresql
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: money_service_db
+    ports:
+      - "5432:5432"
