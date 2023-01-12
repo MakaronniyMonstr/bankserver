@@ -33,20 +33,4 @@
             <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <THREAD_COUNT>8</THREAD_COUNT>
-                        <READ_QUOTA>20</READ_QUOTA>
-                        <WRITE_QUOTA>80</WRITE_QUOTA>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
